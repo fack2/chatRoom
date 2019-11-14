@@ -1,0 +1,27 @@
+{
+  "name": "chatRoom",
+  "version": "1.0.0",
+  "description": "a room for online chatting.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./server/index.js",
+    "dev": "nodemon ./server/index.js",
+    "heroku-postbuild": "cd client && npm install && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fack2/chatRoom.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fack2/chatRoom/issues"
+  },
+  "homepage": "https://github.com/fack2/chatRoom#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^1.19.4",
+    "path": "^0.12.7"
+  }
+}
