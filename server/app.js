@@ -18,6 +18,9 @@ app.use(express.static(path.join(__dirname, "..", "client", "build")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/api", router);
+app.use("/", (req, res) => {
+  res.send("in home");
+});
 
 if (process.env.NODE_ENV === "production") {
   app.get("*", (req, res) => {
