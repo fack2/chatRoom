@@ -19,7 +19,7 @@ class ChatRoom extends Component {
     };
   }
   componentDidMount() {
-    this.socket = io('https://heroku1db.herokuapp.com/');
+    this.socket = io('https://chat-room2.herokuapp.com/');
     this.socket.on('chat message', msg => {
       this.setState({chatMesssages: [...this.state.chatMesssages, msg]});
     });
