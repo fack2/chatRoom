@@ -2,6 +2,10 @@ import React, {Component, Fragment} from 'react'
 import io from 'socket.io-client'
 import {SafeAreaView, StyleSheet, ScrollView, View, Text, TextInput, StatusBar} from 'react-native'
 import axios from 'axios'
+import {connect} from 'react-redux'
+// import {} from "redux"
+import {initChatRoom, chatMessageInput, addMessage} from '../../redux/actions'
+import {bindActionCreators} from 'redux'
 
 import {
   Header,
@@ -12,32 +16,29 @@ import {
 } from 'react-native/Libraries/NewAppScreen'
 
 class ChatRoom extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      chatMesssage: '',
-      chatMesssages: [],
-      t: [],
-    }
-  }
   componentDidMount() {
-    axios
-      .get('http://192.168.13.204:4000/api/getMessages')
-      .then(({data}) => {
-        this.setState({chatMesssages: data.map(a => a.description), t: data})
-      })
-      .catch(err => {
-        console.log('line 30', err)
-      })
-    // this.setState({chatMesssages:})
+    // axios
+    //   .get('http://192.168.13.204:4000/api/getMessages')
+    //   .then(({data}) => {
+    //     this.setState({chatMessages: data.map(a => a.description), t: data})
+    //   })
+    //   .catch(err => {
+    //     console.log('line 30', err)
+    //   })
+    // this.setState({chatMessages:})
     // fetch('http://192.168.13.204:4000/api/getMessages')
     // this.a()
+    this.props.initChatRoom()
     this.socket = io('http://192.168.13.204:4000')
-    this.socket.on('chat message', ({description, user_id}) => {
-      console.log('777777777777777777', description, user_id)
-      this.setState({t: [...this.state.t, {description: description, user_id}]}, () => {
-        console.log('this.state.')
-      })
+    this.socket.on('chat message', msg => {
+      // this.socket.on('chat message', ({description, user_id}) => {
+      // console.log('777777777777777777', description, user_id)
+      this.setState({aw: msg})
+      this.props.addMessage(msg)
+
+      // this.setState({t: [...this.state.t, {description: description, user_id}]}, () => {
+      // console.log('this.state.')
+      // })
     })
   }
   // a = async () => {
@@ -47,16 +48,16 @@ class ChatRoom extends Component {
   // }
 
   submitChatMessage = () => {
-    this.socket.emit('chat message', {msg: this.state.chatMesssage, user_id: 1})
-    this.setState({chatMesssage: ''})
+    this.socket.emit('chat message', {msg: this.props.chatMessage, user_id: 1})
+    this.props.chatMessageInput('')
   }
 
   render() {
-    // const chatMesssages2 = this.state.chatMesssages.map(chatMesssage => <Text key={chatMesssage}>{chatMesssage}</Text>)
-    const chatMesssages = this.state.t.map(a => (
+    // const chatMessages2 = this.state.chatMessages.map(chatMessage => <Text key={chatMessage}>{chatMessage}</Text>)
+    const chatMessages = this.props.chatMessages.map(a => (
       <View key={a.description + '6666'}>
         <Text style={{color: a.color}} key={a.description + '7777'}>
-          user id{a.user_id}
+          {a.name}
         </Text>
         <Text key={a.description + '88888'}>{a.description}</Text>
       </View>
@@ -67,13 +68,11 @@ class ChatRoom extends Component {
           <TextInput
             style={{height: 40, borderWidth: 2}}
             autoCorrect={false}
-            value={this.state.chatMesssage}
+            value={this.props.chatMessage}
             onSubmitEditing={this.submitChatMessage}
-            onChangeText={chatMesssage => {
-              this.setState({chatMesssage})
-            }}
+            onChangeText={chatMessage => this.props.chatMessageInput(chatMessage)}
           />
-          {chatMesssages}
+          {chatMessages}
         </View>
       </ScrollView>
     )
@@ -86,5 +85,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
 })
+const mapStateToProps = state => {
+  return {
+    chatMessage: state.chatRoomReducer.chatMessage,
+    chatMessages: state.chatRoomReducer.chatMessages,
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      initChatRoom,
+      chatMessageInput,
+      addMessage,
+    },
+    dispatch,
+  )
+}
 
-export default ChatRoom
+export default connect(mapStateToProps, mapDispatchToProps)(ChatRoom)

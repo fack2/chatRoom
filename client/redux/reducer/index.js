@@ -1,12 +1,12 @@
 const initState = {
   flag: '',
-};
+}
 
 const tempReducer = (state = initState, action) => {
   switch (action.type) {
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default tempReducer;
+export default tempReducer
