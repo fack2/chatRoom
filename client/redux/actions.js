@@ -1,23 +1,46 @@
 import axios from 'axios'
-export const initChatRoom = () => async dispatch => {
-  console.log('----------------------------------')
+const initChatRoom = () => async dispatch => {
   let chatMessages
   try {
-    const {data} = await axios.get('http://192.168.13.204:4000/api/getMessages')
+    const {data} = await axios.get('https://chat-room2.herokuapp.com/api/getMessages')
     chatMessages = data
     dispatch({
       type: 'INIT_CHAT_ROOM',
       chatMessages: [...data],
     })
-    console.log('++++++++++++', data[0])
   } catch (e) {
-    console.log('line 7', e, '777777')
+    console.log(e)
   }
-
 }
-export const chatMessageInput = chatMessageInput => {
+const chatMessageInput = chatMessageInput => {
   return {type: 'CHAT_MESSAGE_INPUT', chatMessageInput}
 }
-export const addMessage = msg => {
-         return {type: 'ADD_MESSAGE', msg}
-       }
+const addMessage = msg => {
+  return {type: 'ADD_MESSAGE', msg}
+}
+const inputNameChange = e => {
+  const name = e.nativeEvent.text
+
+  return {
+    type: 'INPUT_NAME_CHANGE',
+    name,
+  }
+}
+
+const inputEmailChange = e => {
+  const email = e.nativeEvent.text
+  return {
+    type: 'INPUT_EMAIL_CHANGE',
+    email,
+  }
+}
+
+const inputPasswordChange = e => {
+  const password = e.nativeEvent.text
+  return {
+    type: 'INPUT_PASSWORD_CHANGE',
+    password,
+  }
+}
+
+export {inputNameChange, inputEmailChange, inputPasswordChange, initChatRoom, chatMessageInput, addMessage}

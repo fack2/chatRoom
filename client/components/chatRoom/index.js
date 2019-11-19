@@ -9,9 +9,8 @@ import {bindActionCreators} from 'redux'
 class ChatRoom extends Component {
   componentDidMount() {
     this.props.initChatRoom()
-    this.socket = io('http://192.168.13.204:4000')
+    this.socket = io('https://chat-room2.herokuapp.com')
     this.socket.on('chat message', msg => {
-      this.setState({aw: msg})
       this.props.addMessage(msg)
     })
   }

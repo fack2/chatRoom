@@ -1,8 +1,8 @@
 import {createStore, applyMiddleware} from 'redux'
 import {combineReducers} from 'redux'
-import tempReducer from '../reducer'
-import chatRoomReducer from '../reducer/chatRoomReducer'
 import thunk from 'redux-thunk'
-const store = combineReducers({chatRoomReducer})
+import {signupReducer, chatRoomReducer} from '../reducer'
+
+const store = combineReducers({chatRoomReducer, signupReducer})
 
 export default createStore(store, applyMiddleware(thunk))
