@@ -21,6 +21,7 @@
   "dependencies": {
     "alert-node": "^2.0.3",
     "bcrypt": "^3.0.6",
+    "fs": "0.0.1-security",
     "env2": "^2.2.2",
     "express": "^4.17.1",
     "joi": "^14.3.1",
