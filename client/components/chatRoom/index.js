@@ -2,46 +2,31 @@ import React, {Component} from 'react'
 import io from 'socket.io-client'
 import {StyleSheet, ScrollView, View, Text, TextInput} from 'react-native'
 import axios from 'axios'
+import {connect} from 'react-redux'
+import {initChatRoom, chatMessageInput, addMessage} from '../../redux/actions'
+import {bindActionCreators} from 'redux'
 
 class ChatRoom extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      chatMesssage: '',
-      chatMesssages: [],
-    }
-  }
   componentDidMount() {
-    axios
-      .get('https://chat-room2.herokuapp.com/api/getMessages')
-      .then(({data}) => {
-        this.setState({chatMesssages: data.map(msgInfo => msgInfo.description), chatMesssages: data})
-      })
-      .catch(err => {
-        console.log('line 30', err)
-      })
-
+    this.props.initChatRoom()
     this.socket = io('https://chat-room2.herokuapp.com')
-    this.socket.on('chat message', ({description, user_id}) => {
-      this.setState({chatMesssages: [...this.state.chatMesssages, {description: description, user_id}]}, () => {
-        console.log('this.state.')
-      })
+    this.socket.on('chat message', msg => {
+      this.props.addMessage(msg)
     })
   }
 
   submitChatMessage = () => {
-    this.socket.emit('chat message', {msg: this.state.chatMesssage, user_id: 1})
-    this.setState({chatMesssage: ''})
+    this.socket.emit('chat message', {msg: this.props.chatMessage, user_id: 1})
+    this.props.chatMessageInput('')
   }
 
   render() {
-    const chatMesssages = this.state.chatMesssages.map((msgInfo, i) => (
-      // the keys are temp
+    const chatMessages = this.props.chatMessages.map((msgInfo, i) => (
       <View key={msgInfo.description + i}>
-        <Text key={msgInfo.description + '1' + i} style={{color: msgInfo.color}}>
-          user id{msgInfo.user_id}
+        <Text style={{color: msgInfo.color}} key={msgInfo.description + i}>
+          {msgInfo.name}
         </Text>
-        <Text key={msgInfo.description + '2' + i}>{msgInfo.description}</Text>
+        <Text key={msgInfo.description + i + i}>{msgInfo.description}</Text>
       </View>
     ))
     return (
@@ -50,13 +35,11 @@ class ChatRoom extends Component {
           <TextInput
             style={{height: 40, borderWidth: 2}}
             autoCorrect={false}
-            value={this.state.chatMesssage}
+            value={this.props.chatMessage}
             onSubmitEditing={this.submitChatMessage}
-            onChangeText={chatMesssage => {
-              this.setState({chatMesssage})
-            }}
+            onChangeText={chatMessage => this.props.chatMessageInput(chatMessage)}
           />
-          {chatMesssages}
+          {chatMessages}
         </View>
       </ScrollView>
     )
@@ -69,5 +52,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
 })
+const mapStateToProps = state => {
+  return {
+    chatMessage: state.chatRoomReducer.chatMessage,
+    chatMessages: state.chatRoomReducer.chatMessages,
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      initChatRoom,
+      chatMessageInput,
+      addMessage,
+    },
+    dispatch,
+  )
+}
 
-export default ChatRoom
+export default connect(mapStateToProps, mapDispatchToProps)(ChatRoom)
