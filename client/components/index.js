@@ -6,8 +6,8 @@ import ChatRoom from './chatRoom'
 import SignUp from './SignUp'
 
 const NavigationStack = createStackNavigator({
-  SignUp: {screen: SignUp},
   ChatRoom: {screen: ChatRoom},
+  SignUp: {screen: SignUp},
 })
 
 const Routes = createAppContainer(NavigationStack)

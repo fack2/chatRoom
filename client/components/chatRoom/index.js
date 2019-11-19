@@ -13,7 +13,7 @@ class ChatRoom extends Component {
   }
   componentDidMount() {
     axios
-      .get('http://192.168.1.92:4000/api/getMessages')
+      .get('http://192.168.13.204:4000/api/getMessages')
       .then(({data}) => {
         this.setState({chatMesssages: data.map(msgInfo => msgInfo.description), chatMesssages: data})
       })
@@ -21,7 +21,7 @@ class ChatRoom extends Component {
         console.log('line 30', err)
       })
 
-    this.socket = io('http://192.168.1.92:4000')
+    this.socket = io('http://192.168.13.204:4000')
     this.socket.on('chat message', ({description, user_id}) => {
       this.setState({chatMesssages: [...this.state.chatMesssages, {description: description, user_id}]}, () => {
         console.log('this.state.')
