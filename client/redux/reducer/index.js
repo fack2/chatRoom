@@ -1,12 +1,3 @@
-const initState = {
-  flag: '',
-};
+import signupReducer from './signup'
 
-const tempReducer = (state = initState, action) => {
-  switch (action.type) {
-    default:
-      return state;
-  }
-};
-
-export default tempReducer;
+export {signupReducer}

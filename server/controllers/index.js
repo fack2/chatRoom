@@ -1,4 +1,8 @@
-const express = require("express");
-const router = express.Router();
+const express = require("express")
+const router = express.Router()
+const { signup } = require("./signup")
+const validate = require("./validate")
+const { signupValidation } = require("./validation")
 
-module.exports = router;
+router.post("/signup", validate(signupValidation), signup)
+module.exports = router
