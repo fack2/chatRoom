@@ -13,10 +13,7 @@ export const initChatRoom = () => async dispatch => {
   } catch (e) {
     console.log('line 7', e, '777777')
   }
-  // dispatch({
-  //   type: 'INIT_CHAT_ROOM',
-  //   chatMessages,
-  // })
+
 }
 export const chatMessageInput = chatMessageInput => {
   return {type: 'CHAT_MESSAGE_INPUT', chatMessageInput}
