@@ -14,37 +14,37 @@ class ChatRoom extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      chatMesssage: '',
-      chatMesssages: [],
+      chatMessage: '',
+      chatMessages: [],
     };
   }
   componentDidMount() {
     this.socket = io('https://chat-room2.herokuapp.com/');
     this.socket.on('chat message', msg => {
-      this.setState({chatMesssages: [...this.state.chatMesssages, msg]});
+      this.setState({chatMessages: [...this.state.chatMessages, msg]});
     });
   }
 
   submitChatMessage = () => {
-    this.socket.emit('chat message', this.state.chatMesssage);
-    this.setState({chatMesssage: ''});
+    this.socket.emit('chat message', this.state.chatMessage);
+    this.setState({chatMessage: ''});
   };
 
   render() {
-    const chatMesssages = this.state.chatMesssages.map(chatMesssage => <Text key={chatMesssage}>{chatMesssage}</Text>);
+    const chatMessages = this.state.chatMessages.map(chatMessage => <Text key={chatMessage}>{chatMessage}</Text>);
     return (
       <Fragment>
         <View style={styles.container}>
           <TextInput
             style={{height: 40, borderWidth: 2}}
             autoCorrect={false}
-            value={this.state.chatMesssage}
+            value={this.state.chatMessage}
             onSubmitEditing={this.submitChatMessage}
-            onChangeText={chatMesssage => {
-              this.setState({chatMesssage});
+            onChangeText={chatMessage => {
+              this.setState({chatMessage});
             }}
           />
-          {chatMesssages}
+          {chatMessages}
         </View>
       </Fragment>
     );

@@ -1,7 +1,7 @@
-import {createStore} from 'redux';
+import {createStore, applyMiddleware} from 'redux';
 import {combineReducers} from 'redux';
-import tempReducer from '../reducer';
+import userProfileReducer from '../reducer/userProfileReducer';
+import thunk from 'redux-thunk';
+const store = combineReducers({userProfileReducer});
 
-const store = combineReducers({tempReducer});
-
-export default createStore(store);
+export default createStore(store,applyMiddleware(thunk));
