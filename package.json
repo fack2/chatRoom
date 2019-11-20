@@ -19,13 +19,10 @@
   },
   "homepage": "https://github.com/fack2/chatRoom#readme",
   "dependencies": {
-<<<<<<< HEAD
     "crypto": "^1.0.1",
-=======
     "alert-node": "^2.0.3",
     "bcrypt": "^3.0.6",
     "fs": "0.0.1-security",
->>>>>>> de1f85bac8bb4e20f8de40d30df934c795f29f91
     "env2": "^2.2.2",
     "express": "^4.17.1",
     "joi": "^14.3.1",

@@ -8,10 +8,10 @@ import SignUp from './SignUp';
 import Home from './Home';
 
 const NavigationStack = createStackNavigator({
-  Home: {screen: Home},
-  ChatRoom: {screen: ChatRoom},
-  SignUp: {screen: SignUp},
   Profile: {screen: Profile},
+  ChatRoom: {screen: ChatRoom},
+  Home: {screen: Home},
+  SignUp: {screen: SignUp},
 
 });
 
