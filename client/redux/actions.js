@@ -4,10 +4,11 @@ const initChatRoom = () => async dispatch => {
   try {
     const {data} = await axios.get('https://chat-room2.herokuapp.com/api/getMessages')
     chatMessages = data
-    dispatch({
-      type: 'INIT_CHAT_ROOM',
-      chatMessages: [...data],
-    })
+    if (typeof data === typeof [])
+      dispatch({
+        type: 'INIT_CHAT_ROOM',
+        chatMessages: [...data],
+      })
   } catch (e) {
     console.log(e)
   }

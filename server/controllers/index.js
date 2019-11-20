@@ -5,6 +5,6 @@ const { signup } = require("./signup")
 const validate = require("./validate")
 const { signupValidation } = require("./validation")
 
-router.get("/api/getMessages", getMessages)
+router.get("/getMessages", getMessages)
 router.post("/signup", validate(signupValidation), signup)
 module.exports = router
