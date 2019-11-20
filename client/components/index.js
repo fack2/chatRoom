@@ -4,10 +4,12 @@ import {createStackNavigator} from 'react-navigation-stack';
 import {Text} from 'react-native';
 import ChatRoom from './chatRoom';
 import SignUp from './SignUp';
+import Home from './Home';
 
 const NavigationStack = createStackNavigator({
-  SignUp: {screen: SignUp},
+  Home: {screen: Home},
   ChatRoom: {screen: ChatRoom},
+  SignUp: {screen: SignUp},
 });
 
 const Routes = createAppContainer(NavigationStack);
