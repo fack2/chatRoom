@@ -1,8 +1,12 @@
-import {createStore, applyMiddleware} from 'redux'
-import {combineReducers} from 'redux'
-import thunk from 'redux-thunk'
-import {signupReducer, chatRoomReducer} from '../reducer'
+import { createStore, applyMiddleware } from "redux";
+import { combineReducers } from "redux";
+import thunk from "redux-thunk";
+import { signupReducer, chatRoomReducer, userProfileReducer } from "../reducer";
 
-const store = combineReducers({chatRoomReducer, signupReducer})
+const store = combineReducers({
+  chatRoomReducer,
+  signupReducer,
+  userProfileReducer
+});
 
-export default createStore(store, applyMiddleware(thunk))
+export default createStore(store, applyMiddleware(thunk));
