@@ -9,7 +9,7 @@ class Login extends Component {
   pressButton = navigate => {
     const {email, password} = this.props;
     axios
-      .post('http://192.168.13.107:4000/api/login', {
+      .post('https://chat-room2.herokuapp.com/api/login', {
         email,
         password,
       })
@@ -23,6 +23,7 @@ class Login extends Component {
 
   render() {
     const {navigate} = this.props.navigation;
+
     return (
       <View style={styles.main}>
         <Text style={styles.text}>LogIn</Text>

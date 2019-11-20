@@ -2,9 +2,7 @@ import axios from 'axios';
 const initChatRoom = () => async dispatch => {
   let chatMessages;
   try {
-    const {data} = await axios.get(
-      'https://chat-room2.herokuapp.com/api/getMessages',
-    );
+    const {data} = await axios.get('https://chat-room2.herokuapp.com/api/getMessages');
     chatMessages = data;
     dispatch({
       type: 'INIT_CHAT_ROOM',

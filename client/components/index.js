@@ -1,12 +1,12 @@
-import React from 'react';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
-import {Text} from 'react-native';
 import ChatRoom from './chatRoom';
 import SignUp from './SignUp';
+import Home from './Home';
 import Login from './Login';
 
 const NavigationStack = createStackNavigator({
+  Home: {screen: Home},
   Login: {screen: Login},
   SignUp: {screen: SignUp},
   ChatRoom: {screen: ChatRoom},

@@ -4,13 +4,19 @@ const path = require("path");
 const app = express();
 const cookieParser = require("cookie-parser");
 const server = require("http").createServer(app);
+const addMessage = require("./controllers/addMessage");
+const getMessage = require("./controllers/getMessage");
 const io = require("socket.io").listen(server);
 
 io.on("connection", socket => {
   console.log("a user connected :D");
-  socket.on("chat message", msg => {
-    console.log(msg);
-    io.emit("chat message", msg);
+  socket.on("chat message", m => {
+    const { user_id, msg } = m;
+    addMessage(user_id, msg).then(t => {
+      const cc = getMessage(user_id).then(r => {
+        io.emit("chat message", r[0]);
+      });
+    });
   });
 });
 
