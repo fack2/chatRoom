@@ -1,12 +1,6 @@
-const initState = {
-  flag: '',
-};
+import signupReducer from './signup'
+import chatRoomReducer from './chatRoomReducer'
+import userProfileReducer from './userProfileReducer';
 
-const tempReducer = (state = initState, action) => {
-  switch (action.type) {
-    default:
-      return state;
-  }
-};
 
-export default tempReducer;
+export {signupReducer, chatRoomReducer,userProfileReducer}
