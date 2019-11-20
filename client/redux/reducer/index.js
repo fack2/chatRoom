@@ -1,3 +1,4 @@
-import signupReducer from './signup'
+import signupReducer from './signup';
+import loginReducer from './login';
 
-export {signupReducer}
+export {signupReducer, loginReducer};

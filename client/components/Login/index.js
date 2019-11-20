@@ -1,17 +1,15 @@
 import React, {Component} from 'react';
 import {View, Button, TextInput, Alert, StyleSheet, Text} from 'react-native';
 import axios from 'axios';
+import {loginEmailChange, loginPasswordChange} from '../../redux/actions';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 
 class Login extends Component {
-  state = {
-    email: '',
-    password: '',
-  };
-
   pressButton = navigate => {
-    const {email, password} = this.state;
+    const {email, password} = this.props;
     axios
-      .post('https://chat-room2.herokuapp.com/api/login', {
+      .post('http://192.168.13.107:4000/api/login', {
         email,
         password,
       })
@@ -32,18 +30,14 @@ class Login extends Component {
           <TextInput
             style={styles.inputText}
             placeholder="Email..."
-            value={this.state.email}
-            onChangeText={email => {
-              this.setState({email});
-            }}
+            value={this.props.email}
+            onChange={this.props.loginEmailChange}
           />
           <TextInput
             style={styles.inputText}
             placeholder="Password..."
-            value={this.state.password}
-            onChangeText={password => {
-              this.setState({password});
-            }}
+            value={this.props.password}
+            onChange={this.props.loginPasswordChange}
           />
         </View>
         <View style={styles.Button}>
@@ -95,4 +89,13 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+const mapState = state => {
+  return {
+    email: state.loginReducer.email,
+    password: state.loginReducer.password,
+  };
+};
+const mapAction = dispatch => {
+  return bindActionCreators({loginEmailChange, loginPasswordChange}, dispatch);
+};
+export default connect(mapState, mapAction)(Login);
