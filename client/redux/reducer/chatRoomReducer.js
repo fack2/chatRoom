@@ -1,6 +1,6 @@
 const initState = {
   chatMessage: '',
-  chatMessages: [],
+  chatMessages: [{description: '\t\t\t\tthire is No Messages\n'}],
 }
 
 const chatRoomReducer = (state = initState, action) => {
