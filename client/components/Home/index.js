@@ -1,12 +1,12 @@
-import React, {Component} from 'react'
-import {View, Button, Image, Text, StyleSheet} from 'react-native'
+import React, {Component} from 'react';
+import {View, Button, Image, Text, StyleSheet} from 'react-native';
 
 class Home extends Component {
   static navigationOptions = {
     title: 'CHAT_ROOM',
-  }
+  };
   render() {
-    const {navigate} = this.props.navigation
+    const {navigate} = this.props.navigation;
     return (
       <View>
         <Text style={styles.textChat}>A room for online chatting.</Text>
@@ -19,19 +19,20 @@ class Home extends Component {
         />
         <View style={styles.Button}>
           <Button
-            title="signup"
-            color="#8A50B8"
+            title='signup'
+            color='#8A50B8'
             onPress={() => navigate('SignUp')}
           />
 
           <Button
-            title="login"
-            color="#61B4CE"
-            onPress={() => navigate('Login')}
+            title='login'
+            color='#61B4CE'
+            onPress={() => navigate('ChatRoom')}
+            // onPress={() => navigate('Login')}
           />
         </View>
       </View>
-    )
+    );
   }
 }
 
@@ -56,6 +57,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     padding: 7,
   },
-})
+});
 
-export default Home
+export default Home;

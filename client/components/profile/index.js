@@ -23,16 +23,16 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 export class Profile extends Component {
-  static navigationOptions = {
-    //To hide the ActionBar/NavigationBar
-    header: null,
-  };
   componentDidMount() {
-    const userId = 1;
+    const {userId} = this.props.navigation.state.params;
+    console.log('navigatenavigatenavigate');
+    console.log(userId);
+    console.log('navigatenavigatenavigate');
 
     this.props.getUserProfile(userId);
   }
   render() {
+    const {navigate} = this.props.navigation;
     return (
       <>
         {this.props.loading ? (
