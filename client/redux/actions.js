@@ -1,4 +1,6 @@
 import axios from 'axios'
+import {AsyncStorage} from 'react-native'
+
 const initChatRoom = () => async dispatch => {
   let chatMessages
   try {
@@ -10,6 +12,28 @@ const initChatRoom = () => async dispatch => {
     })
   } catch (e) {
     console.log(e)
+  }
+}
+const tokenChange = token => async dispatch => {
+  try {
+    await AsyncStorage.setItem('token', token)
+    dispatch({
+      type: 'TOKEN_CHANGE',
+      token,
+    })
+  } catch (e) {
+    console.log(e, ' tokenChange error')
+  }
+}
+const initToken = () => async dispatch => {
+  try {
+    const token = await AsyncStorage.getItem('token')
+    dispatch({
+      type: 'TOKEN_CHANGE',
+      token,
+    })
+  } catch (e) {
+    console.log(e, ' initToken error')
   }
 }
 const chatMessageInput = chatMessageInput => {

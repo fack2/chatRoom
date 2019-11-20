@@ -3,11 +3,7 @@ import {View, Button, TextInput, Alert} from 'react-native'
 import axios from 'axios'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {
-  inputNameChange,
-  inputEmailChange,
-  inputPasswordChange,
-} from '../../redux/actions'
+import {inputNameChange, inputEmailChange, inputPasswordChange} from '../../redux/actions'
 
 class SignUp extends Component {
   pressButton = event => {
@@ -38,21 +34,9 @@ class SignUp extends Component {
   render() {
     return (
       <View>
-        <TextInput
-          placeholder="Email..."
-          value={this.props.email}
-          onChange={this.props.inputEmailChange}
-        />
-        <TextInput
-          placeholder="Name..."
-          value={this.props.name}
-          onChange={this.props.inputNameChange}
-        />
-        <TextInput
-          placeholder="Password..."
-          value={this.props.password}
-          onChange={this.props.inputPasswordChange}
-        />
+        <TextInput placeholder="Email..." value={this.props.email} onChange={this.props.inputEmailChange} />
+        <TextInput placeholder="Name..." value={this.props.name} onChange={this.props.inputNameChange} />
+        <TextInput placeholder="Password..." value={this.props.password} onChange={this.props.inputPasswordChange} />
         <Button title="signup" onPress={this.pressButton} />
       </View>
     )
@@ -67,9 +51,6 @@ const mapState = state => {
   }
 }
 const mapAction = dispatch => {
-  return bindActionCreators(
-    {inputNameChange, inputEmailChange, inputPasswordChange},
-    dispatch,
-  )
+  return bindActionCreators({inputNameChange, inputEmailChange, inputPasswordChange}, dispatch)
 }
 export default connect(mapState, mapAction)(SignUp)

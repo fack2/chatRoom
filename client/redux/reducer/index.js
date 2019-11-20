@@ -1,4 +1,5 @@
 import signupReducer from './signup'
+import signInReducer from './signIn'
 import chatRoomReducer from './chatRoomReducer'
 
-export {signupReducer, chatRoomReducer}
+export {signupReducer, signInReducer, chatRoomReducer}
