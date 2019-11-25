@@ -9,8 +9,8 @@ const { auth } = require("../middlwares/auth");
 const { userInformation } = require("../controllers/userInformation");
 
 router.post("/signup", validate(signupValidation), signup);
-router.get("/getMessages", getMessages);
-router.get("/chech-auth", auth);
+router.get("/getMessages", auth, getMessages);
+// router.get("/chech-auth", auth);
 router.post("/login", login);
 router.get("/profile/:userId", userInformation);
 

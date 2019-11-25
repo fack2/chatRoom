@@ -3,7 +3,7 @@ const { verify } = require("jsonwebtoken");
 const { SECRET } = process.env;
 
 exports.auth = (req, res, next) => {
-  if (req.header.cookie) {
+  if (req.headers.cookie) {
     const { token } = cookie.parse(req.headers.cookie);
     return verify(token, SECRET, (err, result) => {
       if (err) {

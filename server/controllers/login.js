@@ -27,7 +27,7 @@ exports.login = (req, res) => {
               const token = createToken(email, SECRET);
               res.cookie("token", token, { maxAge: 9000000, httpOnly: true }).json({ status: "sucess", token });
             } else {
-              res.status(400).json({ message: "incorrect email pr paswword" });
+              res.status(400).json({ message: "incorrect email or paswword" });
             }
           })
           .catch(err => console.log(err));
