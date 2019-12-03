@@ -4,7 +4,7 @@ export const getUserProfile = userId => async dispatch => {
   let userData;
   try {
     const {data} = await axios.get(
-      `http://192.168.13.80:4000/api/profile/${userId}`,
+      `https://chat-room2.herokuapp.com/api/profile/${userId}`,
     );
     userData = await data[0];
     

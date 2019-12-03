@@ -15,7 +15,7 @@ exports.auth = (req, res, next) => {
             message: "unautorized"
           });
       }
-      return res.status(200).end();
+      next()
     });
   } else {
     return res.status(401).json({ status: "fail", message: "unauthorized" });
