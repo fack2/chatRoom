@@ -4,7 +4,7 @@ export const getUserProfile = userId => async dispatch => {
   let userData;
   try {
     const {data} = await axios.get(
-      `http://192.168.13.80:4000/api/profile/${userId}`,
+      `https://chat-room2.herokuapp.com/api/profile/${userId}`,
     );
     userData = await data[0];
     
@@ -20,7 +20,7 @@ console.log(userData);
   });
 };
 const initChatRoom = () => async dispatch => {
-  let chatMessages
+  let chatMessages;
   try {
     const {data} = await axios.get('https://chat-room2.herokuapp.com/api/getMessages')
     chatMessages = data
@@ -30,38 +30,62 @@ const initChatRoom = () => async dispatch => {
         chatMessages: [...data],
       })
   } catch (e) {
-    console.log(e)
+    console.log(e);
   }
-}
+};
 const chatMessageInput = chatMessageInput => {
-  return {type: 'CHAT_MESSAGE_INPUT', chatMessageInput}
-}
+  return {type: 'CHAT_MESSAGE_INPUT', chatMessageInput};
+};
 const addMessage = msg => {
-  return {type: 'ADD_MESSAGE', msg}
-}
+  return {type: 'ADD_MESSAGE', msg};
+};
 const inputNameChange = e => {
-  const name = e.nativeEvent.text
+  const name = e.nativeEvent.text;
 
   return {
     type: 'INPUT_NAME_CHANGE',
     name,
-  }
-}
+  };
+};
 
 const inputEmailChange = e => {
-  const email = e.nativeEvent.text
+  const email = e.nativeEvent.text;
   return {
     type: 'INPUT_EMAIL_CHANGE',
     email,
-  }
-}
+  };
+};
 
 const inputPasswordChange = e => {
-  const password = e.nativeEvent.text
+  const password = e.nativeEvent.text;
   return {
     type: 'INPUT_PASSWORD_CHANGE',
     password,
-  }
-}
+  };
+};
 
-export {inputNameChange, inputEmailChange, inputPasswordChange, initChatRoom, chatMessageInput, addMessage}
+const loginEmailChange = e => {
+  const loginemail = e.nativeEvent.text;
+  return {
+    type: 'LOGIN_EMAIL_CHANGE',
+    loginemail,
+  };
+};
+
+const loginPasswordChange = e => {
+  const loginpassword = e.nativeEvent.text;
+  return {
+    type: 'LOGIN_PASSWORD_CHANGE',
+    loginpassword,
+  };
+};
+export {
+  inputNameChange,
+  inputEmailChange,
+  inputPasswordChange,
+  loginEmailChange,
+  loginPasswordChange,
+  initChatRoom,
+  chatMessageInput,
+  addMessage,
+};

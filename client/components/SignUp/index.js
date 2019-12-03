@@ -18,7 +18,7 @@ import {
 } from '../../redux/actions';
 
 class SignUp extends Component {
-  pressButton = event => {
+  pressButton = navigate => {
     const {name, email, password} = this.props;
 
     axios
@@ -28,17 +28,19 @@ class SignUp extends Component {
         password,
       })
       .then(result =>
-        result.data.err.filter(e => {
-          if (e.includes('name')) {
-            Alert.alert('name should be alphabet & more than 3 characters');
-          }
-          if (e.includes('email')) {
-            Alert.alert('email should be like example@email.com');
-          }
-          if (e.includes('password')) {
-            Alert.alert('password should be more tnan 6 characters');
-          }
-        }),
+        result.status == 200
+          ? navigate('Login')
+          : result.data.err.filter(e => {
+              if (e.includes('name')) {
+                Alert.alert('name should be alphabet & more than 3 characters');
+              }
+              if (e.includes('email')) {
+                Alert.alert('email should be like example@email.com');
+              }
+              if (e.includes('password')) {
+                Alert.alert('password should be more tnan 6 characters');
+              }
+            }),
       )
       .catch(error => console.log(error));
   };
@@ -69,7 +71,13 @@ class SignUp extends Component {
           />
         </View>
         <View style={styles.Button}>
-          <Button title="signup" color="#8A50B8" onPress={this.pressButton} />
+          <Button
+            title="signup"
+            color="#8A50B8"
+            onPress={() => {
+              this.pressButton(navigate);
+            }}
+          />
         </View>
         <View>
           <TouchableOpacity onPress={() => navigate('Login')}>
