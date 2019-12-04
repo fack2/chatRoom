@@ -27,8 +27,7 @@ class Home extends Component {
           <Button
             title='login'
             color='#61B4CE'
-            onPress={() => navigate('ChatRoom')}
-            // onPress={() => navigate('Login')}
+            onPress={() => navigate('Login')}
           />
         </View>
       </View>
