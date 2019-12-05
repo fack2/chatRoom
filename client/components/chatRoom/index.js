@@ -7,17 +7,20 @@ import {
   Image,
   Text,
   TextInput,
+  Button,
 } from 'react-native';
 import {connect} from 'react-redux';
 import {initChatRoom, chatMessageInput, addMessage} from '../../redux/actions';
 import {bindActionCreators} from 'redux';
 import {YellowBox} from 'react-native';
+import axios from 'axios';
 
 YellowBox.ignoreWarnings([
   'Unrecognized WebSocket connection option(s) `agent`, `perMessageDeflate`, `pfx`, `key`, `passphrase`, `cert`, `ca`, `ciphers`, `rejectUnauthorized`. Did you mean to put these under `headers`?',
 ]);
 class ChatRoom extends Component {
   componentDidMount() {
+    this.props.navigation.setParams({logout: this.logout});
     this.props.initChatRoom();
     this.socket = io('https://chat-room2.herokuapp.com');
     this.socket.on('chat message', msg => {
@@ -32,9 +35,31 @@ class ChatRoom extends Component {
     });
     this.props.chatMessageInput('');
   };
-  static navigationOptions = {
-    //To hide the ActionBar/NavigationBar
-    header: null,
+  logout = () => {
+    axios
+      .get('https://chat-room2.herokuapp.com/api/logout')
+      .then(r => {
+        console.log('logged out ');
+      })
+      .catch(e => {
+        console.log(e);
+      });
+    const {navigate} = this.props.navigation;
+    navigate('Home');
+  };
+
+  static navigationOptions = ({navigation}) => {
+    return {
+      title: 'CHAT_ROOM',
+      headerRight: () => (
+        <Button
+          onPress={navigation.getParam('logout')}
+          title="Logout"
+          color="#61B4CE"
+        />
+      ),
+      headerLeft: null,
+    };
   };
   render() {
     const {userId} = this.props;
@@ -111,7 +136,7 @@ class ChatRoom extends Component {
                 marginTop: 5,
               }}
               autoCorrect={false}
-              placeholder='Enter your message ...'
+              placeholder="Enter your message ..."
               value={this.props.chatMessage}
               onSubmitEditing={this.submitChatMessage}
               onChangeText={chatMessage =>
